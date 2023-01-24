@@ -1,0 +1,151 @@
+html{height: 100%;}
+body{
+    height: 100%;
+    transform-origin: 0 0;
+    font-family: "メイリオ", meiryo, sans-serif;
+}
+
+:root{
+    --font_size: 1em;
+}
+
+div[class = "start_btn"]{
+    position: relative;
+    background-color:#ccc;
+    left: 2.5%;                /* 左からの表示位置 */
+    top: 38%;                  /* 上からの表示位置 */
+    width: 20%;
+    height: 10%;
+}
+
+button[id = "start"]{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 90%;
+    height: 60%;
+}
+
+div[class = "stop_btn"]{
+    position: relative;
+    background-color:#ccc;
+    left: 2.5%;                /* 左からの表示位置 */
+    top: 49.5%;                  /* 上からの表示位置 */
+    width: 20%;
+    height: 10%;
+}
+
+button[id = "stop"]{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 90%;
+    height: 60%;
+}
+
+div[class = "reset_btn"]{
+    position: relative;
+    background-color:#ccc;
+    left: 2.5%;                /* 左からの表示位置 */
+    top: 61%;                  /* 上からの表示位置 */
+    width: 20%;
+    height: 10%;
+}
+
+button[id = "reset"]{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 90%;
+    height: 60%;
+}
+
+div[class = "time_area"]{
+    position: relative;
+    background-color:#ccc;
+    left: 25%;                /* 左からの表示位置 */
+    top: -21%;                  /* 上からの表示位置 */
+    width: 50%;
+    height: 20%;
+}
+
+div[id = "time"]{
+    position: absolute;
+    top: 10%;
+    left: 25%;
+	font-size: 70px;
+	font-weight: bold;
+	color: #FFF;
+}
+
+div[class = "rap_area"]{
+    position: relative;
+    background-color:#ccc;
+    left: 25%;                /* 左からの表示位置 */
+    top: -12%;                  /* 上からの表示位置 */
+    width: 50%;
+    height: 53%;
+}
+
+textarea[id = "rap-info"]{
+    position: absolute;
+    font-size: 1.6em;
+    background-color:rgb(255, 255, 255);
+    border: 2px solid #000000;
+    resize: none;
+    white-space: pre-wrap;
+    top: 3%;
+    left: 9%;
+    width: 80%;
+    height: 90%;
+}
+
+div[class = "username_area"]{
+    position: relative;
+    background-color:#ccc;
+    left: 77.5%;                /* 左からの表示位置 */
+    top: -94%;                  /* 上からの表示位置 */
+    width: 20%;
+    height: 20%;
+}
+
+div[class = "rap_btn"]{
+    position: relative;
+    background-color:#ccc;
+    left: 77.5%;                /* 左からの表示位置 */
+    top: -85%;                  /* 上からの表示位置 */
+    width: 20%;
+    height: 10%;
+}
+
+button[id = "rap"]{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 90%;
+    height: 60%;
+}
+
+div[class = "annotation_area"]{
+    position: relative;
+    background-color:#ccc;
+    left: 77.5%;                /* 左からの表示位置 */
+    top: -75%;                  /* 上からの表示位置 */
+    width: 20%;
+    height: 33%;
+}
+
+textarea[id = "annotation"]{
+    position: absolute;
+    font-size: 1.6em;
+    background-color:rgb(255, 255, 255);
+    border: 2px solid #000000;
+    resize: none;
+    white-space: pre-wrap;
+    top: 3%;
+    left: 9%;
+    width: 80%;
+    height: 90%;
+}
+
+#invisible { visibility: hidden; }   /* 非表示 */

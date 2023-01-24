@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stopwatch.css">
+    <title>StopWatch</title>
+</head>
+
+<body>
+    <div class="start_btn">
+        <button id="start">start!</button>
+    </div>
+    <div class="stop_btn">
+        <button id="stop">stop!</button>
+    </div>
+    <div class="reset_btn">
+        <button id="reset">reset!</button>
+    </div>
+    <div class="time_area">
+        <div id="time">00:00.000</div>
+    </div>
+    <div class="rap_area">
+        <textarea id = "rap-info" style = "overflow:auto;" readonly></textarea>
+    </div>
+    <div class="username_area"></div>
+    <div class="rap_btn">
+        <button id="rap">Time per page</button>
+    </div>
+    <div class="annotation_area">
+        <textarea id = "annotation" style = "overflow:auto;"></textarea>
+        <textarea id="invisible"></textarea>
+    </div>
+    <script src='stopwatch.js'></script>
+</body>
+</html>
