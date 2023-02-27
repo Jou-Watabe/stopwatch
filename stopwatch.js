@@ -1,10 +1,11 @@
-const time = document.getElementById('time');
+const time = document.getElementById('time_area');
 const startButton = document.getElementById('start');
 const stopButton = document.getElementById('stop');
 const resetButton = document.getElementById('reset');
 const rapButton = document.getElementById('rap');
 const rapArea = document.getElementById('rap-info');
 const annotationArea = document.getElementById('annotation');
+const recordButton = document.getElementById('check');
 const contentArea = document.getElementById('invisible');
 
 let count = 0;
@@ -20,6 +21,21 @@ let timeoutID;
 
 let old_time;
 
+//ここにPDFのURL
+var url = "./watabe-project_study_2.pdf";
+ 
+var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+// pdf.worker.js のURL
+pdfjsLib.GlobalWorkerOptions.workerSrc
+= "./pdfjs-dist/build/pdf.worker.js";
+
+// var loadingTask = pdfjsLib.getDocument(url);
+var pdfjs_target = document.getElementById('pdf_view');
+ 
+var page_w = 1000;
+var scale = 1;
+
 // 時間を表示する関数
 function displayTime() {
   const currentTime = new Date(Date.now() - startTime + stopTime); /*現在時刻から開始時間を引き、さらに停止時間を足している*/ 
@@ -32,6 +48,12 @@ function displayTime() {
   /*time.textContent = `${h}:${m}:${s}.${ms}`;*/
   time.textContent = `${m}:${s}.${ms}`;
   timeoutID = setTimeout(displayTime, 10);
+}
+
+function clickPage(){
+  annotationArea.value = "";
+  var page_num = this.previousElementSibling.innerHTML;
+  annotationArea.value = page_num+"\n";
 }
 
 // スタートボタンがクリックされたら時間を進める
@@ -54,7 +76,7 @@ stopButton.addEventListener('click', function() {
   stopTime += (now_time - startTime);
 
   count += 1;
-  contentArea.innerHTML += "p." + ("00" + count).slice(-2) + " " + annotationArea.value + "\n";
+  // contentArea.innerHTML += "p." + ("00" + count).slice(-2) + " " + annotationArea.value + "\n";
   annotationArea.value = "";
 
   let rap_time = new Date(now_time - old_time);
@@ -85,8 +107,8 @@ resetButton.addEventListener('click', function() {
 rapButton.addEventListener('click', () => {
     let now_time = Date.now();
     count += 1;
-    contentArea.innerHTML += "p." + ("00" + count).slice(-2) + " " + annotationArea.value + "\n";
-    annotationArea.value = "";
+    // contentArea.innerHTML += "p." + ("00" + count).slice(-2) + " " + annotationArea.value + "\n";
+    // annotationArea.value = "";
     /*console.log(contentArea.textContent);*/
 
     let rap_time = new Date(now_time - old_time);
@@ -97,4 +119,71 @@ rapButton.addEventListener('click', () => {
     
     rapArea.innerHTML += "p." + ("00" + count).slice(-2) + " " +  `${m}:${s}.${ms}` + "\n";
     old_time = now_time;
+});
+
+recordButton.addEventListener('click', () => {
+  contentArea.innerHTML += /*"p." + ("00" + count).slice(-2) + " " +*/ annotationArea.value + "\n";
+  annotationArea.value = "";
+  /*console.log(contentArea.textContent);*/
+});
+
+document.getElementById('pdf').addEventListener('change', ev => {
+  while(document.getElementById('pdf_view').firstChild){
+    document.getElementById('pdf_view').removeChild(document.getElementById('pdf_view').firstChild)
+  };
+  let file = ev.target.files[0];
+
+  if(file.type != "application/pdf"){
+		console.error(file.name, "is not a pdf file.")
+		return
+	}
+	
+	var fileReader = new FileReader();  
+
+	fileReader.onload = function() {
+		var typedarray = new Uint8Array(this.result);
+    var loadingTask = pdfjsLib.getDocument(typedarray);
+
+		loadingTask.promise.then(
+            function(pdf) {
+                // you can now use *pdf* here
+                console.log("the pdf has ",pdf.numPages, "page(s).")
+                for( var i=1; i<=pdf._pdfInfo.numPages; i++ ){
+                    var count = 0;
+                    pdf.getPage(i).then(function (page) {
+                        count = count + 1;
+                        //横幅を1000pxに調整
+                        page_w = page._pageInfo.view[2];
+                        scale = 1000 / page_w;
+                         
+                        var viewport = page.getViewport({ scale: scale });
+                        var div = document.createElement("div");
+                        var canvas = document.createElement("canvas");
+                        var context = canvas.getContext("2d");
+
+                        var p1 = document.createElement("p");
+                        var text1 = document.createTextNode("p."+count);
+                        p1.appendChild(text1);
+
+                        div.width = viewport.width;
+                        div.height = viewport.height;
+                        
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        canvas.onclick = clickPage;
+        
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport,
+                        };
+                        div.appendChild(p1);
+                        div.appendChild(canvas)
+                        pdfjs_target.appendChild(div);
+                        page.render(renderContext);
+                    });
+                }
+		    });
+	};
+
+	fileReader.readAsArrayBuffer(file);
 });

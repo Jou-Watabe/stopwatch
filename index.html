@@ -9,29 +9,36 @@
 </head>
 
 <body>
-    <div class="start_btn">
-        <button id="start">start!</button>
-    </div>
-    <div class="stop_btn">
-        <button id="stop">stop!</button>
-    </div>
-    <div class="reset_btn">
-        <button id="reset">reset!</button>
-    </div>
-    <div class="time_area">
-        <div id="time">00:00.000</div>
-    </div>
-    <div class="rap_area">
-        <textarea id = "rap-info" style = "overflow:auto;" readonly></textarea>
-    </div>
-    <div class="username_area"></div>
-    <div class="rap_btn">
-        <button id="rap">Time per page</button>
-    </div>
-    <div class="annotation_area">
-        <textarea id = "annotation" style = "overflow:auto;"></textarea>
+    <div class="container">
         <textarea id="invisible"></textarea>
+        <div class="sub">
+            <div id="dummy_area"></div>
+            <div id="time_area">00:00.000</div>
+            <div id="button_area">
+                <button id="start">start!</button>
+                <button id="stop">stop!</button>
+                <button id="reset">reset!</button>
+            </div>
+        </div>
+        <div class="main">
+            <div id="annotation_area">
+                <div id="controller">
+                    <input accept="image/*,.pdf" type="file" id="pdf">
+                    <button id="check">record</button>
+                </div>
+                <div id="annot">
+                    <div id="pdf_view"></div>
+                    <textarea id = "annotation" style = "overflow:auto;"></textarea>
+                </div>
+            </div>
+            <div id="rap_area">
+                <button id="rap">Time per page</button>
+                <textarea id = "rap-info" style = "overflow:auto;" readonly></textarea>
+            </div>
+        </div>
     </div>
+    
+    <script src="./pdfjs-dist/build/pdf.js"></script>
     <script src='stopwatch.js'></script>
 </body>
 </html>
